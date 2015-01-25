@@ -126,7 +126,7 @@ void loop()
   counter++;
   shake_blink();
   enterSleep(6);
-  byte cr = counter;
+  int cr = counter;
   while(cr > 0) {
     blink_signal(1 + (cr % 10));
     enterSleep(7);
