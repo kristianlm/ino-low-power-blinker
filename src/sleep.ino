@@ -118,7 +118,7 @@ void blink_signal(char msg) {
     burst_blink();
   }
 }
-byte counter = 0;
+int counter = 0;
 void loop()
 {
   // old way of sleeping:
