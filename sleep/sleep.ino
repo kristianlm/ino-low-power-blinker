@@ -211,16 +211,12 @@ void bang_bit(byte bit) {
 }
 
 
-void sleep(int ms) {
-  delay(ms / 8);
-}
-
 
 #define TONE    analogWrite(SPEAKER_PIN, 0x80);
 #define SILENCE analogWrite(SPEAKER_PIN, 0x00);
 
 #define DITLEN 60
-#define SLP(dits) sleep(DITLEN * dits);
+#define SLP(dits) delay(DITLEN * dits);
 
 void dit() {
   TONE; SLP(1); SILENCE; SLP(1);
@@ -313,7 +309,7 @@ void punch1(char letter) {
       else if(morse[i] == '-') { dah();  }
       else if(morse[i] == ' ') { SLP(1); }
       // some error signal
-      else {TONE ; sleep(10); SILENCE; sleep(10); TONE ; sleep(10); SILENCE ; sleep(10); }
+      else {TONE ; delay(10); SILENCE; delay(10); TONE ; delay(10); SILENCE ; delay(10); }
     }
   }
 }
@@ -322,7 +318,7 @@ void punch(char *txt, int lms) {
   int len = strlen(txt);
   for(int i = 0 ; i < len ; i++) {
     punch1(txt[i]);
-    sleep(lms);
+    delay(lms);
   }
 }
 
@@ -337,7 +333,7 @@ void loop2() {
   //dah(); dah(); dit();
   //morseout("A");
   //TONE; SLP(1); SILENCE; SLP(1);
-  //sleep(10000);
+  //delay(10000);
   enterSleep(8);
 }
 
@@ -359,7 +355,7 @@ void TinyTone(unsigned char divisor, unsigned char octave, unsigned long duratio
   TCCR1 = 0x90 | (8-octave); // for 1MHz clock
   // TCCR1 = 0x90 | (11-octave); // for 8MHz clock
   OCR1C = divisor-1;         // set the OCR
-  sleep(duration);
+  delay(duration);
   TCCR1 = 0x90;              // stop the counter
 }
 
@@ -387,7 +383,7 @@ void bitbang1(byte value) {
 void bitbang(char *txt, int len) {
   for(int i = 0 ; i < len ; i++) {
     bitbang1(txt[i]);
-    sleep(16);
+    delay(16);
   }
 }
 
