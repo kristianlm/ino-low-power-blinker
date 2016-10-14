@@ -1,9 +1,12 @@
-p := attiny85
 
-all: compile upload
+# this uses the Arduino IDE to build. It's not great (spits our error
+# messages in dialog boxes, not stderr and is very un-command-liny but
+# it seems to work.)
 
-compile:
-	ino build
+./build/sleep.ino.hex: sleep/sleep.ino
+	arduino \
+		--board attiny:avr:ATtinyX5:cpu=attiny85 \
+		--pref build.path=./build \
+		--verify \
+		sleep/sleep.ino
 
-upload:
-	sudo avrdude -p$p -cavrispmkII -Uflash:w:.build/$p-8/firmware.hex:i
