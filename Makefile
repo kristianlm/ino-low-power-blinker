@@ -6,6 +6,9 @@
 # to support the attiny85 for arduino, follow this guide:
 # http://highlowtech.org/?p=1695
 
+
+p = attiny85
+
 ./build/sleep.ino.hex: sleep/sleep.ino
 	arduino \
 		--board attiny:avr:ATtinyX5:cpu=attiny85 \
@@ -13,3 +16,5 @@
 		--verify \
 		sleep/sleep.ino
 
+upload:
+	sudo avrdude -p$p -cavrispmkII -Uflash:w:build/sleep.ino.hex:i
